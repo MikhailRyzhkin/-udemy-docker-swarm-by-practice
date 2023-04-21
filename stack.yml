@@ -1,0 +1,34 @@
+version: "3.1"
+
+services:
+
+# Контейнер wordpress: https://hub.docker.com/_/wordpress с описанием необходимых переменных, контейнеров и пример yml-файла
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wp_pass 
+      WORDPRESS_DB_NAME: wp_db
+
+# Контейнер mysql: https://hub.docker.com/_/mysql с описанием необходимых переменных, контейнеров и пример yml-файла
+  mysql:
+    image: mysql: 5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: wp_db
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wp_pass
+      MYSQL_ROOT_PASSWORD: root
+
+# Контейнер phpmyadmin: https://hub.docker.com/_/phpmyadmin с описанием необходимых переменных, контейнеров и пример yml-файла
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: mysql
